@@ -1,0 +1,19 @@
+
+本文件夹中的文件来自于LLE作者Sam Roweis的主页（http://cs.nyu.edu/~roweis/data.html）UMIST数据，
+UMist Faces [data/umist_cropped.mat] [picture]
+Grayscale faces 8 bit [0-255], a few images (views) of 20 different people.
+575 total images, 112x92 size, manually cropped by Daniel Graham at UMist
+Citation: Characterizing Virtual Eigensignatures for General Purpose Face Recognition, Daniel B Graham and Nigel M Allinson. In Face Recognition: From Theory to Applications ; NATO ASI Series F, Computer and Systems Sciences, Vol. 163; H. Wechsler, P. J. Phillips, V. Bruce, F. Fogelman-Soulie and T. S. Huang (eds), pp 446-456, 1998.
+
+
+经过我的整理（整理职数见UMIST_process.m)，整理后数据如下：
+其中UMIST.mat中包含两个数据
+	fea 1024 * 575每列一个样本(1024=32x32)
+	gnd   1  * 575每列一个标签
+这个UMIST数据包含20类，每类约有29个样本
+
+文件　idxData_k,　k = 6,8,10,12　包含对575个样本的随机分割
+每个文件中包含两个数据
+	idxTrain_k 50 x (k*20)		每行对应一个分割，每个分割含　k*20　  个样本组成训练样本
+	idxTest_k  50 x (575-k*20)	每行对应一个分割，每个分割含(575-k*20)个样本组成测试样本
+

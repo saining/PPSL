@@ -1,0 +1,58 @@
+## Gabor Filter
+### 1. Use the Gabor Project Code to build a filter
+```matlab
+disp('Step 1: GENERATE TEST IMAGE');
+img = 0.1*randn(128,128);
+img(50:60,50:60) = 1;
+imagesc(img);
+colormap(gray);
+
+% create 1-D spatial Gabor filter
+disp('Step 2: FILTER WITH 2D TIME DOMAIN GABOR FILTER');
+f = 0.2;
+theta = 0;
+gamma = 1;
+eta = 1;
+g = gfcreatefilter2(f,theta,gamma,eta,[62 62]);
+disp('Real part of the filter');
+imagesc(real(g));
+colormap(gray);
+
+% filter signal with given filter and plot magnitude
+disp('If the image i(x,y) and filter g(x,y) are now convolved conv(g,x)');
+disp('we can calculate the magnitudes of the filter response.');
+resp1 = conv2(g,img,'same');
+imagesc(abs(resp1).^2);
+colormap(gray);
+colorbar;
+```
+### 2. Get the convolution matrix
+```matlab
+%use the Function `same_convmtx2.m`
+%suppose the face images are already 1024 length vectors storing in columns of fea;
+Filter = same_convmtx2(g, reshape(fea,32,32));
+%conv result=
+gaborfea = Filter*fea(i,:)
+```
+That means, after this stage, we will get a 1024 by N matrix for a Gabor Features 
+
+## PCA recognition
+eigenfaces
+<li>substract mean</li>
+<li>find the 50% eigenvectors on trainning data</li>
+<li>project all the data onto the subspace</li>
+<li>given a test sample, knnsearch in euclidean metric</li>
+
+## GABOR + PCA
+<li>use the gabor filter to get the gaborfea</li>
+<li>follow the above steps for PCA recoginition</li>
+
+## GABORXPDR recognition 1
+<li>XDPR find the orthogonal matrix Y via optimization (directly to sample images) </li>
+<li>project all the gaborfeas onto the suspace by U'*Xi</li>
+<li>Use the gabor filter to get the gaborfea for each projected training sample</li>
+<li>given a test sample X, xpdrfea = P*U'*X</li>
+<li>knnsearch in euclidean metric</li>
+
+## GABORXPDR 2
+<li> use the variance instead of the sample images </li> 
