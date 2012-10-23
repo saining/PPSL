@@ -1,0 +1,10 @@
+disp('HELLO WORLD?');
+mainconf(1,[1:40],50,[1e-5, 1.9],'Nothing',[1:40],'abs_px','Yale','Gabor40_real', 'ALM_XPDR', 'LDA', 'kNN', 10, 'Screen');
+clear all;
+mainconf(1,[1:8],50,[1e-5, 1.9],'Nothing',[1:8],'abs_px','Yale','Gabor40_real', 'ALM_XPDR', 'LDA', 'kNN', 10, 'Screen');
+clear all;
+mainconf(1,[1:40],50,[1e-5, 1.9],'realimag',[1:40],'abs_px','Yale','Gabor40_real', 'ALM_XPDR', 'LDA', 'kNN', 10, 'Screen');
+clear all;
+mainconf(1,[1:8],50,[1e-5, 1.9],'realimag',[1:8],'abs_px','Yale','Gabor40_real', 'ALM_XPDR', 'LDA', 'kNN', 10, 'Screen');
+clear all;
+disp('Have a good Day!');

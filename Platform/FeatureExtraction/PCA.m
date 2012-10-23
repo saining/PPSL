@@ -59,7 +59,7 @@ end
 if issparse(data)
     data = full(data);
 end
-%sampleMean = mean(data,1);
+sampleMean = mean(data,1);
 %data = (data - repmat(sampleMean,nSmp,1));
 
 [eigvector, eigvalue] = mySVD(data',ReducedDim);

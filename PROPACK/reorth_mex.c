@@ -39,7 +39,7 @@
 
 /* Template for reorth: */
 
-void reorth_(int *n, int *k, double *V, int *ldv, double *vnew,
+void REORTH(int *n, int *k, double *V, int *ldv, double *vnew,
 	    double *normvnew, double *index, double *alpha, double *work,
 	    int *iflag, int *nre);
 
@@ -71,7 +71,7 @@ void mexFunction(int nlhs, mxArray *plhs[],
   memcpy(mxGetPr(plhs[1]),mxGetPr(prhs[2]), sizeof(double));
   imethod = (int) mxGetScalar(prhs[5]);
 
-  reorth_(&n, &k, mxGetPr(prhs[0]), &n, mxGetPr(plhs[0]), 
+  REORTH(&n, &k, mxGetPr(prhs[0]), &n, mxGetPr(plhs[0]), 
 	  mxGetPr(plhs[1]), mxGetPr(prhs[3]), mxGetPr(prhs[4]), 
 	  work,&imethod,&inre);
   if (nlhs>2) 

@@ -12,7 +12,12 @@ switch ReconstructionMethod
         CoeffRank = ReducedDim;
 
  	case 'XPDR'
-		[eigvector, eigvalue] = XPDR(fea_Train, ReducedDim);
+        filterType = 'Gabor40'; %arguments in fucntion ConstructFilterMatrix
+        [filterMatrix, dumb] = ConstructFilterMatrix(filterType, fea_Train);
+        filterMatrix = (filterMatrix(GaborIdx)); %filterMatrix is a cell
+        filterMatrix = (cell2mat(filterMatrix));
+        
+		[eigvector, eigvalue] = XPDR(fea_Train, filterMatrix, ReducedDim);
         CoeffRank = ReducedDim;
     case 'ALM_XPDR'
         filterType = 'Gabor40'; %arguments in fucntion ConstructFilterMatrix
@@ -25,9 +30,32 @@ switch ReconstructionMethod
         tol2 = conf.tol2rho(1);
         rho = conf.tol2rho(2);
         %filterMatrix = filterMatrix(1:1024,:);
-        [W, E, CoeffRank] = ladmap_xpdr(fea_Train, filterMatrix, lambda, PType, tol2, rho);
+        
+  		[eigvector, eigvalue] = PCA(fea_Train, options);
+        InitialW = eigvector*eigvector';
+        
+        [W, E, CoeffRank] = ladmap_xpdr(fea_Train, filterMatrix, InitialW, lambda, PType, tol2, rho);
         fprintf('%2.3f\n',CoeffRank);
     
+     case 'ALM_FIX'
+        filterType = 'Gabor40'; %arguments in fucntion ConstructFilterMatrix
+        [filterMatrix, dumb] = ConstructFilterMatrix(filterType, fea_Train);
+        filterMatrix = (filterMatrix(GaborIdx)); %filterMatrix is a cell
+        filterMatrix = (cell2mat(filterMatrix));
+        
+        lambda = conf.lambda;
+        PType = conf.PType;
+        tol2 = conf.tol2rho(1);
+        rho = conf.tol2rho(2);
+        %filterMatrix = filterMatrix(1:1024,:);
+        
+        [eigvector, eigvalue] = PCA(fea_Train, options);
+        InitialW = eigvector*eigvector';
+        
+        [W, CoeffRank] = ladmap_fix(fea_Train, filterMatrix, InitialW, lambda, PType, tol2, rho);
+        fprintf('%2.3f\n',CoeffRank);
+
+
     case 'APG_XPDR'
         filterType = 'Gabor40'; %arguments in fucntion ConstructFilterMatrix
         [filterMatrix, ~] = ConstructFilterMatrix(filterType, fea_Train);
@@ -44,8 +72,7 @@ end
         else
  		%reconstructed fea:
         ProjectionMatrix = eigvector*eigvector';
- 		Rec_fea_Train = mean_fea_Train + eigvector*eigvector'*(fea_Train - mean_fea_Train);	
-        %fea_Train = eigvector*eigvector'*(fea_Train - mean_fea_Train);	
-        %Rec_fea_Train = eigvector*eigvector'*(fea_Train);	
+ 		%Rec_fea_Train = mean_fea_Train + eigvector*eigvector'*(fea_Train - mean_fea_Train);	
+        Rec_fea_Train = eigvector*eigvector'*(fea_Train);	
         end;
 end

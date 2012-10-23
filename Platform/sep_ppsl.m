@@ -1,4 +1,4 @@
-function [] = sep_ppsl(conf)
+function [Accuracy] = sep_ppsl(conf)
 %Note that this file is delicated to produce Multiple Projection Matrices
 %Currently, You should do the following steps to show the results:
 %1. Run this program, note that conf.GaborIdx only have 1 value
@@ -58,13 +58,14 @@ function [] = sep_ppsl(conf)
 	for ii = 1: length( Train )
 	    i = Train( ii ) ;                           
 	    fprintf( fid , 'Train_%d : \n' , i ) ;
-	    if strcmp( FeatureExtractionMethod , 'XPDR' )
-	        Accuracy = size(Splits, 1);
-	    else
+% 	    if strcmp( FeatureExtractionMethod , 'XPDR' )
+% 	        Accuracy = size(Splits, 1);
+% 	    else
 	        Accuracy = size( Splits , length_D ) ;
-	    end
+%	    end
 	    load( [path_data 'idxData' num2str(i)] ) ;
-	    for s = 1 : Splits                        
+	    for ss = 1 : length(Splits),
+            s = Splits(ss);
 	        fea_Train = fea( : , idxTrain(s,:) ) ;
 	        gnd_Train = gnd( idxTrain(s,:) ) ;
 	        fea_Test = fea( : , idxTest(s,:) ) ;

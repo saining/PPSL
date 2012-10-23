@@ -8,7 +8,7 @@ MEX interface for TQLB. Matlab calling sequence:
 #include "mex.h"
 
 /* Template for tqlb: */
-void tqlb_(int *n, double *d__, double *e, double *bnd, 
+void TQLB(int *n, double *d__, double *e, double *bnd, 
 	   double *bnd2, int *ierr);
 
 /* Here comes the gateway function to be called by Matlab: */
@@ -41,7 +41,7 @@ void mexFunction(int nlhs, mxArray *plhs[],
   
   memcpy(mxGetPr(plhs[0]), mxGetPr(prhs[0]),m*sizeof(double));
   memcpy(tmp,mxGetPr(prhs[1]), m*sizeof(double));
-  tqlb_(&m,mxGetPr(plhs[0]),tmp,mxGetPr(plhs[1]),
+  TQLB(&m,mxGetPr(plhs[0]),tmp,mxGetPr(plhs[1]),
 	mxGetPr(plhs[2]),&ierr);
   
   *(mxGetPr(plhs[3])) = (double) ierr;

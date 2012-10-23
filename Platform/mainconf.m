@@ -1,4 +1,4 @@
-function [] = mainconf(Joint, GaborTrainIdx, lambda, tol2rho, PType, GaborFilterIdx, FilterAbs, Dataset, FilterType, ReconstructionMethod,  FeatureExtractionMethod,  Classifier, Splits, Output)
+function [Accuracy, D] = mainconf(Joint, GaborTrainIdx, lambda, tol2rho, PType, GaborFilterIdx, FilterAbs, Dataset, FilterType, ReconstructionMethod,  FeatureExtractionMethod,  Classifier, Splits, Output)
 
 %%TODO - Should set default ones for some parameters.
 %==========================================
@@ -94,9 +94,9 @@ conf.Splits                  = Splits;
 conf.Output					 = Output;
 
 if Joint,
-	joint_ppsl(conf);
+	[Accuracy, D] = joint_ppsl(conf);
 else
-	sep_ppsl(conf);
+	[Accuracy, D] = sep_ppsl(conf);
 end
 
 

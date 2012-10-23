@@ -9,8 +9,8 @@ Matlab calling sequence:
 #include "mex.h"
 
 /* Templates for FORTRAN routines: */
-void dbdqr_(int *n, double *d, double *e, double *c1, double *c2);
-void dbdsqr_(char *uplo, int *n, int *ncvt, int *nru, int *ncc,
+void DBDQR(int *n, double *d, double *e, double *c1, double *c2);
+void DBDSQR(char *uplo, int *n, int *ncvt, int *nru, int *ncc,
 	     double *d, double *e, double *vt, int *ldt, double *u,
 	     int *ldu, double *c, int *ldc, double *work, int *info);
 
@@ -50,10 +50,10 @@ void mexFunction(int nlhs, mxArray *plhs[],
     bnd[i] = 0;
 
   /* Reduce to upper m-by-m upper bidiagonal */
-  dbdqr_(&m, d, e, &bnd[m-1],&dummy);
+  DBDQR(&m, d, e, &bnd[m-1],&dummy);
 
   /* Compute singular values and last row of U */
-  dbdsqr_("u", &m, &zero, &one, &zero, d, e, &dummy, &one,
+  DBDSQR("u", &m, &zero, &one, &zero, d, e, &dummy, &one,
        bnd, &one, &dummy, &one, wrk, &info); 
 
   /* Check exit status of dbdsqr */

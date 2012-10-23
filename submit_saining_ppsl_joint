@@ -1,0 +1,2 @@
+
+  ssh compg1 "screen -dm ./MATLAB/R2011a/bin/matlab -nodesktop -r 'cd PPSL;mainconf(1,[1],50,[1e-5, 1.9],'\''realimag'\'',[1],'\''abs_px'\'','\''Yale'\'','\''Gabor40_real'\'', '\''ALM_XPDR'\'',  '\''LDA'\'', '\''kNN'\'', 10, '\''Screen'\'');exit;' & exit"

@@ -39,7 +39,7 @@ function [filterMatrix, filteredFea] = ConstructFilterMatrix(filterType, data)
                 disp('Wrong Count!')
             end
 
-            fprintf('filterMatrix Size: %d-by-%d', size(cell2mat(filterMatrix),1), size(cell2mat(filterMatrix),2));
+            %fprintf('filterMatrix Size: %d-by-%d', size(cell2mat(filterMatrix),1), size(cell2mat(filterMatrix),2));
             filteredFea = []; %TO-DO
     end
 

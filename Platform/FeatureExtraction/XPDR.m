@@ -1,4 +1,4 @@
-function [eigvector, eigvalue] = XPDR(data, reddim)
+function [eigvector, eigvalue] = XPDR(data,filterMatrix, reddim)
 
 	seed = 2010;
 	fprintf('seed: %d\n', seed);
@@ -7,12 +7,9 @@ function [eigvector, eigvalue] = XPDR(data, reddim)
 	else
 	   rand('state',seed); randn('state',seed^2);
 	end
-	
-    filterType = 'Gabor40'; %arguments in fucntion ConstructFilterMatrix
-    [filterMatrix, ~] = ConstructFilterMatrix(filterType, data);
 
 	n = size(data, 1);
-    P = real(filterMatrix);
+    P = full(abs(filterMatrix));
     %P = eye(size(P));
 
     PP = P'*P;
